@@ -1,8 +1,5 @@
 
-# 4) PubChem spectral lookup tools
-# These tools allow to retrieve spectral metadata from PubChem for a given SMILES,
-# and to build consensus spectra aggregated by (GC/LC, polarity) from the retrieved spectra
-
+from typing import List, Dict, Any
 
 
 def spectra_from_smiles(smiles: str, timeout: int = 20) -> List[Dict[str, Any]]:
