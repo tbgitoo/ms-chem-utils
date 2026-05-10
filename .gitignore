@@ -219,3 +219,6 @@ __marimo__/
 
 # Automated testing
 testing_instructions.ipynb
+
+# Mac
+.DS_Store

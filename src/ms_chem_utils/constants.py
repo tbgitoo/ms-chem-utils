@@ -1,0 +1,1 @@
+PUBCHEM_BASE = "https://pubchem.ncbi.nlm.nih.gov/rest"
