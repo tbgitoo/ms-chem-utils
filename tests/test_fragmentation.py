@@ -1,9 +1,14 @@
 # tests/test_fragmentation.py
-from tests.conftest import requires_rdkit
+import pytest
+rdkit = pytest.importorskip("rdkit")
 
-@requires_rdkit
+
+
+
 def test_fragmentation_smoke():
-    from ms_chem_utils.fragmentation import (
+
+    
+    from ms_chem_utils.rdkit_query import (
         make_generic_bond_query,
         submol_from_match,
     )
@@ -21,9 +26,9 @@ def test_fragmentation_smoke():
     sub = submol_from_match(mol, matches[0])
     assert sub is not None
 
-@requires_rdkit
+
 def test_fragmentation_does_not_throw_on_small_molecule():
-    from ms_chem_utils.fragmentation import heavy_heavy_bond_count
+    from ms_chem_utils.rdkit_query import heavy_heavy_bond_count
     from rdkit import Chem
 
     mol = Chem.MolFromSmiles("O")

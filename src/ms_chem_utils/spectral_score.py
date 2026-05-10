@@ -5,6 +5,11 @@ import math
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple, Union
 
 
+def score_mass_error_ppm(ppm: float, *, ppm_scale: float = 30.0) -> float:
+    ppm = abs(float(ppm))
+    return math.exp(-ppm / max(ppm_scale, 1e-9))
+
+
 def _safe_float(x: Any) -> Optional[float]:
     try:
         if x is None:
@@ -290,7 +295,7 @@ def score_spectral_match(
         mass_score = 0.0
     else:
         mean_abs_ppm = sum(abs_ppms) / n_overlap
-        mass_score = math.exp(-mean_abs_ppm / max(ppm_scale, 1e-9))
+        mass_score = score_mass_error_ppm(mean_abs_ppm, ppm_scale=ppm_scale)
 
     # 9) Combine scores with normalized weights
     

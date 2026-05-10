@@ -25,6 +25,7 @@ def test_spectra_from_smiles_success_path(monkeypatch):
     2) CID -> pug_view record with some spectra-like sections
     """
     import ms_chem_utils.spectra_pubchem as sp
+    import requests
 
     def fake_get(url, params=None, timeout=None):
         # Step 1: smiles -> cids
@@ -46,7 +47,7 @@ def test_spectra_from_smiles_success_path(monkeypatch):
             })
         return _FakeResp({}, status_code=404)
 
-    monkeypatch.setattr(sp.requests, "get", fake_get)
+    monkeypatch.setattr(requests, "get", fake_get)
 
     out = sp.spectra_from_smiles("CCO")
     assert isinstance(out, list)
@@ -56,11 +57,12 @@ def test_spectra_from_smiles_success_path(monkeypatch):
 
 def test_spectra_from_smiles_handles_http_error(monkeypatch):
     import ms_chem_utils.spectra_pubchem as sp
+    import requests
 
     def fake_get(url, params=None, timeout=None):
         return _FakeResp({}, status_code=500)
 
-    monkeypatch.setattr(sp.requests, "get", fake_get)
+    monkeypatch.setattr(requests, "get", fake_get)
 
     out = sp.spectra_from_smiles("CCO")
     assert out == []  # based on your code style: returns [] on exceptions

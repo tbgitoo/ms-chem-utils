@@ -42,8 +42,14 @@ def unsat_units_from_mol(mol: Chem.Mol, atom_set: Optional[Set[int]] = None) -> 
                 u += 2
     return u
 
-def heavy_heavy_bond_count(mol: Chem.Mol, atom_set: Set[int]) -> int:
+
+
+
+def heavy_heavy_bond_count(mol: Chem.Mol, atom_set=None) -> int:
     """Count heavy-heavy bonds fully inside atom_set."""
+    
+    if atom_set is None:
+        atom_set = {a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1}
     n = 0
     for b in mol.GetBonds():
         i = b.GetBeginAtomIdx()

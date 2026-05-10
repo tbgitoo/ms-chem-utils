@@ -37,6 +37,14 @@ def smiles_fits_into_smiles(
     Returns a structured dict, never throws for normal bad inputs.
     """
 
+    child_smiles = (child_smiles or "").strip()
+    parent_smiles = (parent_smiles or "").strip()
+
+    if not child_smiles:
+        return {"ok": False, "fits": False, "reason": "Empty child SMILES"}
+    if not parent_smiles:
+        return {"ok": False, "fits": False, "reason": "Empty parent SMILES"}
+
     child = Chem.MolFromSmiles(child_smiles)
     if child is None:
         return {"ok": False, "fits": False, "reason": "Invalid child SMILES"}
