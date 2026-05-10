@@ -1,6 +1,9 @@
 
-from typing import List, Dict, Any, Tuple
+from .constants import PUBCHEM_BASE
 
+from typing import List, Dict, Any, Tuple
+import requests
+from collections import defaultdict
 
 def spectra_from_smiles(smiles: str, timeout: int = 20) -> List[Dict[str, Any]]:
     """
@@ -9,11 +12,14 @@ def spectra_from_smiles(smiles: str, timeout: int = 20) -> List[Dict[str, Any]]:
     This returns *spectral descriptors* (LC-MS / GC-MS), not full peak lists.
     Full spectra must be retrieved from the referenced source (e.g. MassBank).
     """
-
+    
+    
     
     smiles = (smiles or "").strip()
     if not smiles:
         return []
+         
+
 
     # ---- 1) SMILES -> CID (lightweight, reliable) ----
     try:
