@@ -1,5 +1,5 @@
 
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 
 
 def spectra_from_smiles(smiles: str, timeout: int = 20) -> List[Dict[str, Any]]:
